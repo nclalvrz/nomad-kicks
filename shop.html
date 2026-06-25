@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomad Kicks | Shop Collection</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="images/logo.png" alt="Nomad Kicks Logo" class="logo">
+            <h2>Nomad Kicks</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html" class="active">Shop</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li>
+    <a href="login.html" id="accountNavLink">
+        Login
+    </a>
+</li>
+        </ul>
+        <div class="nav-actions">
+            <button id="darkModeBtn">🌙</button>
+            <button id="cartBtn">🛒 <span id="cartCount">0</span></button>
+        </div>
+    </nav>
+
+    <main class="content-wrapper">
+        <section class="products-section" style="padding-top: 40px;">
+            <h2>Browse Sneaker Collection</h2>
+            <div id="productGrid" class="product-grid">
+</div>
+
+<!-- CART SIDEBAR -->
+
+<div id="cartSidebar" class="cart-sidebar">
+
+```
+<div class="cart-header">
+    <h3>Your Cart</h3>
+    <button id="closeCartBtn">✕</button>
+</div>
+
+<div id="cartItems" class="cart-items">
+    <p class="empty-message">Your cart is empty.</p>
+</div>
+
+<div class="cart-footer">
+    <div class="cart-total">
+        <span>Total:</span>
+        <span>₱<span id="cartTotalValue">0.00</span></span>
+    </div>
+
+    <button id="checkoutBtn">
+        Proceed to Checkout
+    </button>
+</div>
+```
+
+</div>
+
+<!-- CHECKOUT MODAL -->
+
+<div id="checkoutModal" class="checkout-modal-overlay">
+
+```
+<div class="checkout-card-box">
+
+    <div class="checkout-card-header">
+        <h3>Review Your Order</h3>
+
+        <button
+            onclick="closeCheckoutModalWindow()"
+            style="background:none;border:none;color:white;font-size:20px;cursor:pointer;">
+            ✕
+        </button>
+    </div>
+
+    <div class="checkout-card-body">
+
+        <h4>Items Summary</h4>
+
+        <div id="checkoutItemsList"
+             class="checkout-summary-list">
+        </div>
+
+        <div style="display:flex;justify-content:space-between;font-weight:700;margin:20px 0;">
+            <span>Total Order Value:</span>
+            <span style="color:#ff4757;">
+                ₱<span id="checkoutGrandTotal">0.00</span>
+            </span>
+        </div>
+
+        <label for="deliveryAddress">
+            Delivery Address
+        </label>
+
+        <textarea
+            id="deliveryAddress"
+            rows="4"
+            style="width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;"
+            placeholder="Enter complete delivery address">
+        </textarea>
+
+        <h4 style="margin-top:20px;">
+            Select Payment Method
+        </h4>
+
+        <div class="payment-method-selector">
+
+            <label class="payment-radio-label">
+                <input
+                    type="radio"
+                    name="paymentOption"
+                    value="GCash"
+                    checked>
+                📱 GCash
+            </label>
+
+            <label class="payment-radio-label">
+                <input
+                    type="radio"
+                    name="paymentOption"
+                    value="Card">
+                💳 Debit / Credit Card
+            </label>
+
+            <label class="payment-radio-label">
+                <input
+                    type="radio"
+                    name="paymentOption"
+                    value="COD">
+                💵 Cash on Delivery
+            </label>
+
+        </div>
+
+        <button
+            onclick="handleFinalOrderPlacement()"
+            class="add-to-cart-btn"
+            style="margin-top:20px;">
+            Place Order
+        </button>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- PAYMENT MODAL -->
+
+<div id="paymentModal" class="checkout-modal-overlay">
+
+```
+<div class="checkout-card-box">
+
+    <div class="checkout-card-header">
+
+        <h3 id="paymentTitle">
+            Payment
+        </h3>
+
+        <button
+            onclick="closePaymentModal()"
+            style="background:none;border:none;color:white;font-size:20px;cursor:pointer;">
+            ✕
+        </button>
+
+    </div>
+
+    <div
+        id="paymentContent"
+        class="checkout-card-body">
+    </div>
+
+</div>
+```
+
+</div>
+</section>
+    </main>
+
+    <footer class="site-footer">
+        <div>© 2026 Nomad Kicks Footwear Store</div>
+        <div>Alvarez, Nicole E. • Bagayana, Mark Henry R.</div>
+        <div style="font-style: italic; margin-top: 5px; color: #aaa;">[this website is created for academic purposes only]</div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+    // Automatically switch Login menu based on session
+document.addEventListener("DOMContentLoaded", function () {
+
+    const navLinks = document.querySelectorAll(".nav-links a");
+
+    navLinks.forEach(link => {
+
+        if (link.getAttribute("href") === "login.html") {
+
+            // Admin logged in
+            if (sessionStorage.getItem("isAdmin") === "true") {
+
+                link.innerHTML = "🛠️ Admin Profile";
+link.href = "login.html";
+            }
+
+            // User logged in
+            else if (sessionStorage.getItem("isLoggedIn") === "true") {
+
+                link.innerHTML = "👤 My Profile";
+link.href = "login.html";
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>

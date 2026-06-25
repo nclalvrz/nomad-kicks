@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomad Kicks | Contact Us</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="images/logo.png" alt="Nomad Kicks Logo" class="logo">
+            <h2>Nomad Kicks</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+            <li>
+    <a href="login.html" id="accountNavLink">
+        Login
+    </a>
+</li>
+        </ul>
+        <div class="nav-actions">
+            <button id="darkModeBtn">🌙</button>
+            <button id="cartBtn">🛒 <span id="cartCount">0</span></button>
+        </div>
+    </nav>
+
+    <main class="content-wrapper" style="padding: 40px 0;">
+        <section class="contact-section">
+            <div style="max-width: 600px; margin: 0 auto; text-align: left; background: #fbfbfb; padding: 40px; border-radius: 15px; border: 1px solid #eee; color: #222;">
+                
+                <!-- HEADING PLACED INSIDE THE BOX -->
+                <h2 style="font-size: 2rem; margin-bottom: 25px; font-weight: 700; text-align: center;">Contact Our Team</h2>
+                
+                <h3 style="margin-bottom: 15px; font-weight: 600;">Send a Quick Message</h3>
+                <form onsubmit="event.preventDefault(); alert('Message sent successfully!');" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px;">
+                    <input type="text" placeholder="Your Name" class="auth-input-element" required>
+                    <input type="email" placeholder="Your Email" class="auth-input-element" required>
+                    <textarea placeholder="Your Message..." class="auth-input-element" style="min-height: 120px; resize: vertical;" required></textarea>
+                    <button type="submit" class="add-to-cart-btn" style="padding: 14px; font-weight: 600;">Send Message</button>
+                </form>
+
+                <hr style="margin: 25px 0; border-color: #eee;">
+                
+                <!-- CONTACT DETAILS REPOSITIONS BELOW THE BUTTON -->
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <p style="margin: 0; font-size: 1.05rem;">📍 <strong>Physical Address:</strong> Tavera St., Brgy. Tavera, Pakil, Laguna</p>
+                    <p style="margin: 0; font-size: 1.05rem;">⏰ <strong>Physical Store Hours:</strong> Daily | 9:30 AM - 7:30 PM</p>
+                    <p style="margin: 0; font-size: 1.05rem;">📧 <strong>Email Support:</strong> support@nomadkicks.com</p>
+                <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header"><h3>Your Cart</h3><button id="closeCartBtn">✕</button></div>
+        <div id="cartItems" class="cart-items"><p class="empty-message">Your cart is empty.</p></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total:</span><span>₱<span id="cartTotalValue">0.00</span></span></div>
+            <button id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <div id="checkoutModal" class="checkout-modal-overlay">
+        <div class="checkout-card-box">
+            <div class="checkout-card-header">
+                <h3 style="font-weight: 600;">Review Your Order</h3>
+                <button onclick="closeCheckoutModalWindow()" style="background:none; border:none; color:white; font-size:20px; cursor:pointer;">✕</button>
+            </div>
+            <div class="checkout-card-body">
+                <h4 style="margin-bottom: 10px; font-weight: 600;">Items Summary</h4>
+                <div id="checkoutItemsList" class="checkout-summary-list"></div>
+                <div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:700; margin-bottom:25px; padding-bottom:15px; border-bottom:1px solid #eee;">
+                    <span>Total Order Value:</span>
+                    <span style="color:#ff4757;">₱<span id="checkoutGrandTotal">0.00</span></span>
+                </div>
+                <h4 style="margin-bottom: 8px; font-weight: 600;">
+    Delivery Address Details
+</h4>
+
+<div
+    id="checkoutAddressBox"
+    style="
+        margin-bottom:25px;
+        padding:12px;
+        background:#f9f9f9;
+        border-radius:8px;
+        border:1px solid #eee;
+        font-size:0.9rem;
+    "
+>
+
+    <label
+        for="deliveryAddress"
+        style="
+            display:block;
+            font-weight:600;
+            margin-bottom:8px;
+        "
+    >
+        Delivery Address
+    </label>
+
+    <textarea
+        id="deliveryAddress"
+        rows="4"
+        style="
+            width:100%;
+            padding:12px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            resize:none;
+            box-sizing:border-box;
+        "
+        placeholder="Enter your complete delivery address (House No., Street, Barangay, City, Province, ZIP Code)..."
+    ></textarea>
+
+</div>
+                <h4 style="margin-bottom: 10px; font-weight: 600;">Select Payment Method</h4>
+                <div class="payment-method-selector">
+                    <label class="payment-radio-label">
+                        <input type="radio" name="paymentOption" value="GCash" checked>
+                        <span>📱 GCash (E-Wallet Instant Transfer)</span>
+                    </label>
+                    <label class="payment-radio-label">
+                        <input type="radio" name="paymentOption" value="Card">
+                        <span>💳 Debit / Credit Card (Visa/Mastercard)</span>
+                    </label>
+                    <label class="payment-radio-label">
+                        <input type="radio" name="paymentOption" value="COD">
+                        <span>💵 Cash On Delivery (COD)</span>
+                    </label>
+                </div>
+                <button onclick="handleFinalOrderPlacement()" class="add-to-cart-btn" style="padding:16px; font-size:1.1rem; font-weight:600; background:#ff4757; margin-top:30px;">
+                    Place Order
+                </button>
+           <div id="paymentModal" class="checkout-modal-overlay">
+
+    <div class="checkout-card-box">
+
+        <div class="checkout-card-header">
+            <h3 id="paymentTitle">Payment</h3>
+
+            <button
+                onclick="closePaymentModal()"
+                style="
+                    background:none;
+                    border:none;
+                    color:white;
+                    font-size:20px;
+                    cursor:pointer;
+                ">
+                ✕
+            </button>
+        </div>
+
+        <div
+            class="checkout-card-body"
+            id="paymentContent">
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div>© 2026 Nomad Kicks Footwear Store</div>
+        <div>Alvarez, Nicole E. • Bagayana, Mark Henry R.</div>
+        <div style="font-style: italic; margin-top: 5px; color: #aaa;">[this website is created for academic purposes only]</div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+    // Automatically switch Login menu based on session
+document.addEventListener("DOMContentLoaded", function () {
+
+    const navLinks = document.querySelectorAll(".nav-links a");
+
+    navLinks.forEach(link => {
+
+        if (link.getAttribute("href") === "login.html") {
+
+            // Admin logged in
+            if (sessionStorage.getItem("isAdmin") === "true") {
+
+                link.innerHTML = "🛠️ Admin Profile";
+link.href = "login.html";
+            }
+
+            // User logged in
+            else if (sessionStorage.getItem("isLoggedIn") === "true") {
+
+                link.innerHTML = "👤 My Profile";
+link.href = "login.html";
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>

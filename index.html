@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomad Kicks | Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="images/logo.png" alt="Nomad Kicks Logo" class="logo">
+            <h2>Nomad Kicks</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li>
+    <a href="login.html" id="accountNavLink">
+        Login
+    </a>
+</li>
+        </ul>
+        <div class="nav-actions">
+            <button id="darkModeBtn">🌙</button>
+            <button id="cartBtn">🛒 <span id="cartCount">0</span></button>
+        </div>
+    </nav>
+
+    <main class="content-wrapper">
+        <section class="hero">
+            <button id="shopNowBtn">Shop Now</button>
+        </section>
+
+        <section class="products-section">
+            <h2>Our Premium Collection</h2>
+            <div id="productGrid" class="product-grid"></div>
+        </section>
+
+        <section class="lifestyle-section">
+            <h2>#NomadLifestyle Gallery</h2>
+            <div class="lifestyle-grid">
+                <div class="lifestyle-item"><img src="images/lifestyle1.jpeg" alt="Lifestyle 1"></div>
+                <div class="lifestyle-item"><img src="images/lifestyle2.jpeg" alt="Lifestyle 2"></div>
+                <div class="lifestyle-item"><img src="images/lifestyle3.jpeg" alt="Lifestyle 3"></div>
+                <div class="lifestyle-item"><img src="images/lifestyle4.jpeg" alt="Lifestyle 4"></div>
+                <div class="lifestyle-item"><img src="images/lifestyle5.jpeg" alt="Lifestyle 5"></div>
+            <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header"><h3>Your Cart</h3><button id="closeCartBtn">✕</button></div>
+        <div id="cartItems" class="cart-items"><p class="empty-message">Your cart is empty.</p></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total:</span><span>₱<span id="cartTotalValue">0.00</span></span></div>
+            <button id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <div id="checkoutModal" class="checkout-modal-overlay">
+        <div class="checkout-card-box">
+            <div class="checkout-card-header">
+                <h3 style="font-weight: 600;">Review Your Order</h3>
+                <button onclick="closeCheckoutModalWindow()" style="background:none; border:none; color:white; font-size:20px; cursor:pointer;">✕</button>
+            </div>
+            <div class="checkout-card-body">
+                <h4 style="margin-bottom: 10px; font-weight: 600;">Items Summary</h4>
+                <div id="checkoutItemsList" class="checkout-summary-list"></div>
+                <div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:700; margin-bottom:25px; padding-bottom:15px; border-bottom:1px solid #eee;">
+                    <span>Total Order Value:</span>
+                    <span style="color:#ff4757;">₱<span id="checkoutGrandTotal">0.00</span></span>
+                </div>
+                <h4 style="margin-bottom: 8px; font-weight: 600;">
+    Delivery Address Details
+</h4>
+
+<div
+    id="checkoutAddressBox"
+    style="
+        margin-bottom:25px;
+        padding:12px;
+        background:#f9f9f9;
+        border-radius:8px;
+        border:1px solid #eee;
+        font-size:0.9rem;
+    "
+>
+
+    <label
+        for="deliveryAddress"
+        style="
+            display:block;
+            font-weight:600;
+            margin-bottom:8px;
+        "
+    >
+        Delivery Address
+    </label>
+
+    <textarea
+        id="deliveryAddress"
+        rows="4"
+        style="
+            width:100%;
+            padding:12px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            resize:none;
+            box-sizing:border-box;
+        "
+        placeholder="Enter your complete delivery address (House No., Street, Barangay, City, Province, ZIP Code)..."
+    ></textarea>
+
+</div>
+                <h4 style="margin-bottom: 10px; font-weight: 600;">Select Payment Method</h4>
+                <div class="payment-method-selector">
+                    <label class="payment-radio-label">
+                        <input type="radio" name="paymentOption" value="GCash" checked>
+                        <span>📱 GCash (E-Wallet Instant Transfer)</span>
+                    </label>
+                    <label class="payment-radio-label">
+                        <input type="radio" name="paymentOption" value="Card">
+                        <span>💳 Debit / Credit Card (Visa/Mastercard)</span>
+                    </label>
+                    <label class="payment-radio-label">
+                        <input type="radio" name="paymentOption" value="COD">
+                        <span>💵 Cash On Delivery (COD)</span>
+                    </label>
+                </div>
+                <button onclick="handleFinalOrderPlacement()" class="add-to-cart-btn" style="padding:16px; font-size:1.1rem; font-weight:600; background:#ff4757; margin-top:30px;">
+                    Place Order
+                </button>
+            <div id="paymentModal" class="checkout-modal-overlay">
+
+    <div class="checkout-card-box">
+
+        <div class="checkout-card-header">
+            <h3 id="paymentTitle">Payment</h3>
+
+            <button
+                onclick="closePaymentModal()"
+                style="
+                    background:none;
+                    border:none;
+                    color:white;
+                    font-size:20px;
+                    cursor:pointer;
+                ">
+                ✕
+            </button>
+        </div>
+
+        <div
+            class="checkout-card-body"
+            id="paymentContent">
+        </div>
+
+    </div>
+
+</div>
+</div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div>© 2026 Nomad Kicks Footwear Store</div>
+        <div>Alvarez, Nicole E. • Bagayana, Mark Henry R.</div>
+        <div style="font-style: italic; margin-top: 5px; color: #aaa;">[this website is created for academic purposes only]</div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+    // Automatically switch Login menu based on session
+document.addEventListener("DOMContentLoaded", function () {
+
+    const navLinks = document.querySelectorAll(".nav-links a");
+
+    navLinks.forEach(link => {
+
+        if (link.getAttribute("href") === "login.html") {
+
+            // Admin logged in
+            if (sessionStorage.getItem("isAdmin") === "true") {
+
+                link.innerHTML = "🛠️ Admin Profile";
+link.href = "login.html";
+            }
+
+            // User logged in
+            else if (sessionStorage.getItem("isLoggedIn") === "true") {
+
+                link.innerHTML = "👤 My Profile";
+link.href = "login.html";
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>

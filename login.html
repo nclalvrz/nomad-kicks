@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomad Kicks | Account Access</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="images/logo.png" alt="Nomad Kicks Logo" class="logo">
+            <h2>Nomad Kicks</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li>
+    <a href="login.html" id="accountNavLink">
+        Login
+    </a>
+</li>
+        </ul>
+        <div class="nav-actions">
+            <button id="darkModeBtn">🌙</button>
+            <button id="cartBtn">🛒 <span id="cartCount">0</span></button>
+        </div>
+    </nav>
+
+    <main id="authContentWrapper" class="content-wrapper" style="min-height: 75vh; display: flex; align-items: center; justify-content: center; padding: 40px 4%;">
+        
+        <!-- SIGN IN CARD BLOCK -->
+        <div id="loginCardBlock" class="auth-card" style="max-width: 460px; width: 100%; padding: 40px 35px; color: #222;">
+            <h2 style="margin-bottom: 8px; text-align: center;">Welcome Back</h2>
+            <p style="color: #666; margin-bottom: 25px; font-size:0.9rem; text-align: center;">Sign in to your account</p>
+            
+            <form onsubmit="event.preventDefault(); handleLogin();">
+                <div>
+                    <label style="font-weight: 500; font-size: 0.85rem; display:block; margin-bottom:5px;">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="customer@nomadkicks.ph" class="auth-input-element" required>
+                </div>
+                <div>
+                    <label style="font-weight: 500; font-size: 0.85rem; display:block; margin-bottom:5px;">Password</label>
+                    <input type="password"
+       id="loginPassword"
+       placeholder="••••••••"
+       class="auth-input-element"
+       required>
+                </div>
+                
+                <div style="display: flex; align-items: flex-start; gap: 10px; margin-top: 5px;">
+                    <input type="checkbox" id="termsCheckbox" required style="width: 16px; height: 16px; margin-top: 2px; cursor: pointer;">
+                    <label for="termsCheckbox" style="font-size: 0.85rem; color: inherit; cursor: pointer; user-select: none;">
+                        I agree to the <a href="#" onclick="openLegalModal('terms')" style="color: #ff4757; text-decoration: none; font-weight: 500;">Terms & Conditions</a> (including the Data Privacy Act Policy)
+                    </label>
+                </div>
+
+                <div style="text-align: right; margin-top: -5px;">
+                    <a href="#" onclick="alert('Password reset token dispatched.')" style="color: #ff4757; font-size: 0.85rem; text-decoration: none; font-weight: 500;">Forgot Password?</a>
+                </div>
+                <button type="submit" class="add-to-cart-btn" style="padding: 14px;">Sign In</button>
+            </form>
+            <p style="margin-top: 25px; font-size: 0.9rem; color: #666; text-align:center;">
+                Don't have an account? <a href="#" onclick="toggleAuthView('register')" style="color: #ff4757; text-decoration: none; font-weight: 600;">Create account</a>
+            </p>
+        </div>
+
+        <!-- CREATE ACCOUNT PANEL -->
+        <div id="registerCardBlock" class="product-card" style="max-width: 460px; width: 100%; padding: 40px 35px; display: none; color: #222;">
+            <h2 style="margin-bottom: 8px; text-align: center;">Create Account</h2>
+            <p style="color: #666; margin-bottom:25px; font-size:0.9rem; text-align: center;">Join the Nomad Kicks street community</p>
+                <div>
+                    <label style="font-weight: 500; font-size: 0.85rem; display:block; margin-bottom:5px;">Full Name</label>
+                    <input type="text" id="regName" placeholder="John Doe" class="auth-input-element" required>
+                </div>
+                <div>
+                    <label style="font-weight: 500; font-size: 0.85rem; display:block; margin-bottom:5px;">Email Address</label>
+                    <input type="email" id="regEmail" placeholder="name@example.com" class="auth-input-element" required>
+                </div>
+                <div>
+                    <label style="font-weight: 500; font-size: 0.85rem; display:block; margin-bottom:5px;">Password</label>
+                    <input
+    type="password"
+    id="regPassword"
+    placeholder="Create Password"
+    class="auth-input-element"
+    required
+    onkeyup="checkPasswordStrength()"
+>
+
+<div id="passwordStrength"
+     style="
+     font-size:0.85rem;
+     margin-top:5px;
+     font-weight:500;">
+</div>
+                </div>
+                
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 500; font-size: 0.85rem;">Select Your Location / Region</label>
+                    <select id="regLoc" class="auth-input-element" style="cursor: pointer;">
+                        <option value="calabarzon">Calabarzon (Pakil/Laguna Local)</option>
+                        <option value="ncr">Metro Manila (NCR)</option>
+                        <option value="visayas">Visayas Region</option>
+                        <option value="mindanao">Mindanao Region</option>
+                    </select>
+                </div>
+                <button
+    type="button"
+    onclick="registerUser()"
+    class="add-to-cart-btn"
+    style="padding:14px; margin-top:10px;">
+    Sign Up
+</button>
+            </form>
+            <p style="margin-top: 25px; font-size: 0.9rem; color: #666; text-align:center;">
+                Already have an account? <a href="#" onclick="toggleAuthView('login')" style="color: #ff4757; text-decoration: none; font-weight: 600;">Sign In</a>
+            </p>
+        </div>
+
+        <!-- ADMIN DASHBOARD -->
+<div id="adminDashboardBlock"
+     class="dashboard-grid"
+     style="display:none;">
+
+    <aside class="dashboard-sidebar">
+
+    <h3 style="padding:20px;">
+        Admin Panel
+    </h3>
+
+    <button
+        class="dashboard-tab active"
+        onclick="switchAdminTab('products', this)"
+    >
+        📦 Products
+    </button>
+
+    <button
+        class="dashboard-tab"
+        onclick="switchAdminTab('orders', this)"
+    >
+        🛒 Orders
+    </button>
+
+    <button
+        class="dashboard-tab"
+        onclick="switchAdminTab('users', this)"
+    >
+        👥 Users
+    </button>
+
+    <button
+        class="dashboard-tab"
+        onclick="adminLogout()"
+    >
+        🚪 Logout
+    </button>
+
+</aside>
+
+    </aside>
+
+    <section class="dashboard-content-pane">
+
+    <h2>Administrator Dashboard</h2>
+
+<!-- PRODUCTS -->
+<div id="admin-products">
+
+    <div class="product-card" style="margin-top:20px;">
+        <h3>Total Products</h3>
+        <p id="adminProductCount">0</p>
+    </div>
+
+    <div class="product-card" style="margin-top:20px;">
+        <h3>Add Product</h3>
+
+        <input
+            type="text"
+            id="productName"
+            placeholder="Product Name"
+            class="auth-input-element"
+        >
+
+        <input
+            type="number"
+            id="productPrice"
+            placeholder="Price"
+            class="auth-input-element"
+        >
+
+        <input
+    type="text"
+    id="productImage"
+    placeholder="Image URL"
+    class="auth-input-element"
+>
+
+        <button
+            onclick="addProduct()"
+            class="add-to-cart-btn"
+        >
+            Add Product
+        </button>
+    </div>
+
+    <div class="product-card" style="margin-top:20px;">
+        <h3>Product List</h3>
+        <div id="adminProductList"></div>
+    </div>
+
+</div>
+
+<!-- ORDERS -->
+<div id="admin-orders" style="display:none;">
+
+    <div class="product-card">
+
+        <h3>Total Orders</h3>
+
+        <p id="adminOrderCount">0</p>
+
+    </div>
+
+    <div class="product-card" style="margin-top:20px;">
+
+        <h3>Orders List</h3>
+
+        <div id="adminOrdersList"></div>
+
+    </div>
+
+</div>
+
+<!-- USERS -->
+<div id="admin-users" style="display:none;">
+
+    <div class="product-card">
+
+        <h3>Registered Users</h3>
+
+        <div id="adminUsersList"></div>
+
+    </div>
+    </section>
+</div>   <!-- CLOSE adminDashboardBlock -->
+
+<!-- USER DASHBOARD -->
+<div id="userDashboardBlock"
+     class="dashboard-grid"
+     style="display:none;">
+
+            <aside class="dashboard-sidebar">
+                <div style="padding: 10px 20px; margin-bottom: 10px;">
+                    <h3 id="dashWelcomeName" style="font-size: 1.15rem; font-weight: 600; color: inherit; text-transform: capitalize;">Gamer Nomad</h3>
+                    <p style="font-size: 0.8rem; color: #777;">Verified Street Member</p>
+                    <div style="font-size: 0.75rem; color: #ff4757; margin-top: 5px;" id="timeoutCounterDisplay">Session Active</div>
+                </div>
+                <button class="dashboard-tab active" id="tabButton-profile" onclick="switchDashboardTab('profile', this)">👤 My Profile</button>
+                <button class="dashboard-tab" id="tabButton-cart" onclick="switchDashboardTab('cart', this)">🛒 My Cart</button>
+                <button class="dashboard-tab" id="tabButton-orders" onclick="switchDashboardTab('orders', this)">📦 My Orders</button>
+                <button class="dashboard-tab" id="tabButton-settings" onclick="switchDashboardTab('settings', this)">⚙️ Settings</button>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+                <button class="dashboard-tab" onclick="handleManualLogOut();" style="color: #ff4757;">🚪 Log Out</button>
+            </aside>
+
+            <section class="dashboard-content-pane" style="text-align: left; color: inherit;">
+                <!-- PROFILE PANE -->
+                <div id="pane-profile" class="dash-pane">
+                    <h2 style="margin-bottom: 20px; font-weight: 600; border-bottom: 2px solid #ff4757; padding-bottom: 8px; display: inline-block;">Account Profile</h2>
+                    
+                    <div id="profileStaticView" style="display: flex; flex-direction: column; gap: 15px; margin-top: 10px;">
+                        <p><strong>Full Name:</strong> <span id="profName">John Doe</span></p>
+                        <p><strong>Email Address:</strong> <span id="profEmail">customer@nomadkicks.ph</span></p>
+                        <p>
+    <strong>Default Zone:</strong>
+    <span id="profLoc">
+        Calabarzon (Pakil/Laguna Local)
+    </span>
+</p>
+                        <p>
+    <strong>Last Login:</strong>
+    <span id="lastLoginDisplay">N/A</span>
+</p>
+                        <p><strong>Membership Rank:</strong> <span style="background: #ff4757; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">Bronze Nomad</span></p>
+                        <p>
+    <strong>Loyalty Points:</strong>
+    <span id="loyaltyPoints">0</span>
+</p>
+                        <button onclick="enableProfileEditing()" class="add-to-cart-btn" style="width: fit-content; padding: 10px 20px; margin-top: 10px; background: #222;">Edit Details</button>
+                    </div>
+
+                    <form id="profileEditForm" onsubmit="event.preventDefault(); saveProfileModifications();" style="display: none; flex-direction: column; gap: 15px; margin-top: 10px; max-width: 450px;">
+                        <form onsubmit="event.preventDefault(); handleRegister();">
+                        <div>
+                            <label style="display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px;">Full Name</label>
+                            <input type="text" id="editProfName" class="auth-input-element" required>
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px;">Email Address</label>
+                            <input type="email" id="editProfEmail" class="auth-input-element" required>
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px;">Location Zone</label>
+                            <select id="editProfLoc" class="auth-input-element">
+                                <option value="Calabarzon (Pakil/Laguna Local)">Calabarzon (Pakil/Laguna Local)</option>
+                                <option value="Metro Manila (NCR)">Metro Manila (NCR)</option>
+                                <option value="Visayas Region">Visayas Region</option>
+                                <option value="Mindanao Region">Mindanao Region</option>
+                            </select>
+                        </div>
+                        <div style="display:flex; gap:10px; margin-top:5px;">
+                            <button type="submit" class="add-to-cart-btn" style="background: #ff4757; padding: 10px 20px; width: fit-content;">Save Changes</button>
+                            <button type="button" onclick="cancelProfileEditing()" class="add-to-cart-btn" style="background: #ccc; color: #333; padding: 10px 20px; width: fit-content;">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- CART PANE -->
+                <div id="pane-cart" class="dash-pane" style="display: none;">
+                    <h2 style="margin-bottom: 20px; font-weight: 600; border-bottom: 2px solid #ff4757; padding-bottom: 8px; display: inline-block;">Active Shopping Cart</h2>
+                    <div id="dashCartItemsContainer" style="margin-top: 10px;"></div>
+                </div>
+
+                <!-- ORDERS PANE -->
+                <div id="pane-orders" class="dash-pane" style="display: none;">
+                    <h2 style="margin-bottom: 20px; font-weight: 600; border-bottom: 2px solid #ff4757; padding-bottom: 8px; display: inline-block;">Order Tracking History</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.95rem;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #eee; text-align: left; background: rgba(0,0,0,0.02);">
+                                <th style="padding: 12px;">Order ID</th>
+                                <th style="padding: 12px;">Date / Session</th>
+                                <th style="padding: 12px;">Items Breakdown</th>
+                                <th style="padding: 12px;">Payment</th>
+                                <th style="padding: 12px;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dashOrdersTableBody">
+                            <tr id="emptyOrdersRow">
+                                <td colspan="5" style="padding: 20px; text-align: center; color: #777;">No finalized purchases recorded in this session yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- SETTINGS PANE -->
+                <div id="pane-settings" class="dash-pane" style="display: none;">
+                    <h2 style="margin-bottom: 20px; font-weight: 600; border-bottom: 2px solid #ff4757; padding-bottom: 8px; display: inline-block;">Security & Preferences</h2>
+                    <form onsubmit="event.preventDefault(); alert('Security configurations updated.');" style="display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin-top: 10px;">
+                        <div>
+                            <label style="display: block; font-size: 0.85rem; margin-bottom: 4px; font-weight: 500;">Update Password</label>
+                            <input type="password" placeholder="New Password" class="auth-input-element">
+                        </div>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.9rem; margin-top: 5px;">
+                            <input type="checkbox" checked style="width: 16px; height: 16px;"> Receive promotional stock drops via email
+                        </label>
+                        <button type="submit" class="add-to-cart-btn" style="width: fit-content; padding: 10px 25px; background: #ff4757;">Save Changes</button>
+                    <!-- CHECKOUT MODAL SYSTEM -->
+    <div id="checkoutModal" class="checkout-modal-overlay">
+        <div class="checkout-card-box">
+            <div class="checkout-card-header">
+                <h3 style="font-weight: 600;">Review Your Order</h3>
+                <button onclick="closeCheckoutModalWindow()" style="background:none; border:none; color:white; font-size:20px; cursor:pointer;">✕</button>
+            </div>
+            <div class="checkout-card-body">
+                <h4 style="margin-bottom: 10px; font-weight: 600;">Items Summary</h4>
+                <div id="checkoutItemsList" class="checkout-summary-list"></div>
+                <div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:700; margin-bottom:25px; padding-bottom:15px; border-bottom:1px solid #eee;">
+                    <span>Total Order Value:</span>
+                    <span style="color:#ff4757;">₱<span id="checkoutGrandTotal">0.00</span></span>
+                </div>
+                <h4 style="margin-bottom: 8px; font-weight: 600;">
+    Delivery Address Details
+</h4>
+
+<div
+    id="checkoutAddressBox"
+    style="
+        margin-bottom:25px;
+        padding:12px;
+        background:#f9f9f9;
+        border-radius:8px;
+        border:1px solid #eee;
+        font-size:0.9rem;
+    "
+>
+
+    <label
+        for="deliveryAddress"
+        style="
+            display:block;
+            font-weight:600;
+            margin-bottom:8px;
+        "
+    >
+        Delivery Address
+    </label>
+
+    <textarea
+        id="deliveryAddress"
+        rows="4"
+        style="
+            width:100%;
+            padding:12px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            resize:none;
+            box-sizing:border-box;
+        "
+        placeholder="Enter your complete delivery address (House No., Street, Barangay, City, Province, ZIP Code)..."
+    ></textarea>
+
+</div>
+                <h4 style="margin-bottom: 10px; font-weight: 600;">Select Payment Method</h4>
+                <div class="payment-method-selector">
+                    <label class="payment-radio-label">
+                        <input type="radio" name="paymentOption" value="GCash" checked>
+                        <span>📱 GCash (E-Wallet Instant Transfer)</span>
+                    </label>
+                    <label class="payment-radio-label">
+                        <input type="radio" name="paymentOption" value="Card">
+                        <span>💳 Debit / Credit Card (Visa/Mastercard)</span>
+                    </label>
+                    <label class="payment-radio-label">
+                        <input type="radio" name="paymentOption" value="COD">
+                        <span>💵 Cash On Delivery (COD)</span>
+                    </label>
+                </div>
+                <button onclick="handleFinalDashboardOrderPlacement()" class="add-to-cart-btn" style="padding:16px; font-size:1.1rem; font-weight:600; background:#ff4757; margin-top:30px;">
+                    Place Order
+                </button>
+            <div id="paymentModal" class="checkout-modal-overlay">
+
+    <div class="checkout-card-box">
+
+        <div class="checkout-card-header">
+            <h3 id="paymentTitle">Payment</h3>
+
+            <button
+                onclick="closePaymentModal()"
+                style="
+                    background:none;
+                    border:none;
+                    color:white;
+                    font-size:20px;
+                    cursor:pointer;
+                ">
+                ✕
+            </button>
+        </div>
+
+        <div
+            class="checkout-card-body"
+            id="paymentContent">
+        </div>
+
+    </div>
+
+</div></form>
+                </div>
+            </section>
+        </div>   <!-- CLOSE userDashboardBlock -->
+
+    <!-- LEGAL COMPLIANCE MODAL -->
+    <div id="legalModal" class="checkout-modal-overlay">
+        <div class="checkout-card-box" style="max-width:600px;">
+            <div class="checkout-card-header">
+                <h3 id="legalModalTitle" style="font-weight:600;">Legal Terms Overview</h3>
+                <button onclick="closeLegalModal()" style="background:none; border:none; color:white; font-size:20px; cursor:pointer;">✕</button>
+            </div>
+            <div id="legalModalBody" class="checkout-card-body" style="font-size:0.9rem; line-height:1.6; color:#333; max-height: 400px; overflow-y: auto;">
+                <!-- Filled dynamically by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div>© 2026 Nomad Kicks Footwear Store</div>
+        <div>Alvarez, Nicole E. • Bagayana, Mark Henry R.</div>
+        <div style="font-style: italic; margin-top: 5px; color: #aaa;">[this website is created for academic purposes only]</div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        let loginAttempts = 0;
+
+        // Session Inactivity Timer configuration
+        let inactivityTimeout;
+        const INACTIVITY_LIMIT = 5 * 60 * 1000; // 5 Minutes in Milliseconds
+
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimeout);
+            if (sessionStorage.getItem('isLoggedIn') === 'true') {
+                inactivityTimeout = setTimeout(handleAutoLogOut, INACTIVITY_LIMIT);
+            }
+        }
+
+        let adminProducts = JSON.parse(localStorage.getItem("products")) || [
+    {
+        id: 1,
+        name: "Nike Air Force 1",
+        price: 5995,
+        stock: 10
+    },
+    {
+        id: 2,
+        name: "Adidas Samba",
+        price: 6495,
+        stock: 8
+    }
+];
+
+function saveProducts() {
+    localStorage.setItem(
+        "products",
+        JSON.stringify(adminProducts)
+    );
+}
+
+        // Keep session live upon sensing standard user behaviors
+        function renderAdminDashboard(){
+
+    document.getElementById("loginCardBlock").style.display = "none";
+    document.getElementById("registerCardBlock").style.display = "none";
+    document.getElementById("userDashboardBlock").style.display = "none";
+    document.getElementById("adminDashboardBlock").style.display = "grid";
+
+    loadAdminProducts();
+    loadAdminOrders();
+    loadAdminUsers();
+}
+
+function adminLogout(){
+
+    sessionStorage.clear();
+
+    location.reload();
+}
+        window.onload = checkExistingSession;
+        window.onmousemove = resetInactivityTimer;
+        window.onkeypress = resetInactivityTimer;
+
+        function checkExistingSession() {
+
+    if(sessionStorage.getItem("isAdmin") === "true"){
+        renderAdminDashboard();
+        return;
+    }
+
+    if(sessionStorage.getItem("isLoggedIn") === "true"){
+
+        const savedName =
+        sessionStorage.getItem("userName");
+
+        const savedEmail =
+        sessionStorage.getItem("userEmail");
+
+        const savedLoc =
+        sessionStorage.getItem("userLoc");
+
+        renderDashboardLayout(
+            savedName,
+            savedEmail,
+            savedLoc
+        );
+
+        loadSavedOrdersTable();
+        resetInactivityTimer();
+    }
+}
+
+        function toggleAuthView(view) {
+            const loginCard = document.getElementById('loginCardBlock');
+            const registerCard = document.getElementById('registerCardBlock');
+            if (view === 'register') {
+                loginCard.style.display = 'none';
+                registerCard.style.display = 'block';
+            } else {
+                loginCard.style.display = 'block';
+                registerCard.style.display = 'none';
+            }
+        }
+
+        function handleAuthSuccess(name, email, location) {
+            // Save state profile variables to browser sessionStorage container
+            sessionStorage.setItem('isLoggedIn', 'true');
+            sessionStorage.setItem('userName', name || 'John Doe');
+            sessionStorage.setItem('userEmail', email || 'customer@nomadkicks.ph');
+            sessionStorage.setItem('userLoc', location || 'Calabarzon (Pakil/Laguna Local)');
+            sessionStorage.setItem(
+    'lastLogin',
+    new Date().toLocaleString()
+);
+            if (!sessionStorage.getItem('userOrders')) {
+                sessionStorage.setItem('userOrders', JSON.stringify([]));
+            }
+
+            renderDashboardLayout(name, email, location);
+            loadSavedOrdersTable();
+            resetInactivityTimer();
+        }
+
+        function renderDashboardLayout(name, email, location) {
+            document.getElementById('loginCardBlock').style.display = 'none';
+            document.getElementById('registerCardBlock').style.display = 'none';
+            
+            const wrapper = document.getElementById('authContentWrapper');
+            wrapper.style.display = 'block';
+            wrapper.style.alignItems = 'initial';
+            wrapper.style.justifyContent = 'initial';
+            
+        const dashWelcome =
+document.getElementById('dashWelcomeName');
+
+const profName =
+document.getElementById('profName');
+
+const profEmail =
+document.getElementById('profEmail');
+
+const profLoc =
+document.getElementById('profLoc');
+
+console.log(
+    dashWelcome,
+    profName,
+    profEmail,
+    profLoc
+);
+
+if(dashWelcome) dashWelcome.textContent = name;
+if(profName) profName.textContent = name;
+if(profEmail) profEmail.textContent = email;
+if(profLoc) profLoc.textContent = location;
+            const savedPoints =
+sessionStorage.getItem('loyaltyPoints') || 0;
+
+const loyalty =
+document.getElementById('loyaltyPoints');
+
+if(loyalty){
+    loyalty.textContent = savedPoints;
+}
+            
+            const addressBox = document.getElementById('checkoutAddressTargetText');
+            if(addressBox) addressBox.textContent = `Tavera St., Brgy. Tavera, Pakil, Laguna, ${location}`;
+
+            const dashboard =
+document.getElementById('userDashboardBlock');
+console.log(
+    document.getElementById("userDashboardBlock")
+);
+
+if(dashboard){
+    dashboard.style.display = 'grid';
+}
+            syncDashboardCartView();
+        }
+
+        function switchDashboardTab(tabId, buttonElement) {
+            document.querySelectorAll('.dash-pane').forEach(pane => pane.style.display = 'none');
+            document.querySelectorAll('.dashboard-tab').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById('pane-' + tabId).style.display = 'block';
+            buttonElement.classList.add('active');
+            
+            if(tabId === 'cart') syncDashboardCartView();
+        }
+
+        // PROFILE CONFIGURATION UPDATERS
+        function enableProfileEditing() {
+
+    const profName =
+    document.getElementById("profName");
+
+    const profEmail =
+    document.getElementById("profEmail");
+
+    const profLoc =
+    document.getElementById("profLoc");
+
+    if(
+        !profName ||
+        !profEmail ||
+        !profLoc
+    ){
+        alert("Profile fields missing.");
+        return;
+    }
+
+    document.getElementById(
+        "profileStaticView"
+    ).style.display = "none";
+
+    document.getElementById(
+        "profileEditForm"
+    ).style.display = "flex";
+
+    document.getElementById(
+        "editProfName"
+    ).value = profName.textContent;
+
+    document.getElementById(
+        "editProfEmail"
+    ).value = profEmail.textContent;
+
+    document.getElementById(
+        "editProfLoc"
+    ).value = profLoc.textContent;
+}
+
+        function cancelProfileEditing() {
+            document.getElementById('profileEditForm').style.display = 'none';
+            document.getElementById('profileStaticView').style.display = 'flex';
+        }
+
+        function saveProfileModifications() {
+            const newName = document.getElementById('editProfName').value;
+            const newEmail = document.getElementById('editProfEmail').value;
+            const newLoc = document.getElementById('editProfLoc').value;
+
+            // Save variables to Session Storage frame
+            sessionStorage.setItem('userName', newName);
+            sessionStorage.setItem('userEmail', newEmail);
+            sessionStorage.setItem('userLoc', newLoc);
+
+            document.getElementById('profName').textContent = newName;
+            document.getElementById('profEmail').textContent = newEmail;
+            document.getElementById('profLoc').textContent = newLoc;
+            document.getElementById('dashWelcomeName').textContent = newName;
+
+        const addressBox =
+document.getElementById('checkoutAddressTargetText');
+
+if(addressBox){
+    addressBox.textContent =
+    `Tavera St., Brgy. Tavera, Pakil, Laguna, ${newLoc}`;
+}
+            alert('Profile configuration data updated!');
+            cancelProfileEditing();
+        }
+
+        // CART VIEW SYNC
+        function syncDashboardCartView() {
+            const container = document.getElementById('dashCartItemsContainer');
+            if (!container) return;
+
+            if (typeof cart === 'undefined' || cart.length === 0) {
+                container.innerHTML = `
+                    <p style="color: #555; margin-bottom:20px;">Review items currently staged in your cart session.</p>
+                    <div style="border: 1px dashed #ccc; padding: 30px; text-align: center; border-radius: 8px; background: rgba(0,0,0,0.02);">
+                        <p style="font-weight: 500; margin-bottom: 15px;">Your cart is completely empty right now.</p>
+                        <a href="shop.html" class="add-to-cart-btn" style="text-decoration: none; display: inline-block; width: auto; padding: 10px 25px;">Go to Store Catalog</a>
+                    </div>`;
+            } else {
+                let html = `<p style="margin-bottom: 15px; font-weight:500;">You have items staged for processing:</p>`;
+                html += `<div style="display:flex; flex-direction:column; gap:10px; margin-bottom:20px; border:1px solid #eee; border-radius:8px; padding:15px; background:rgba(0,0,0,0.01);">`;
+                
+                let runningTotal = 0;
+                cart.forEach(item => {
+                    const cost = item.price * item.quantity;
+                    runningTotal += cost;
+                    html += `<div style="display:flex; justify-content:space-between; font-size:0.95rem; border-bottom:1px solid #f5f5f5; padding-bottom:8px; text-transform:capitalize;">
+                        <span>📦 <strong>${item.name}</strong> (x${item.quantity})</span>
+                        <span style="font-weight:600;">₱${cost.toLocaleString('en-PH', {minimumFractionDigits:2})}</span>
+                    </div>`;
+                });
+
+                html += `<div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.1rem; margin-top:10px; color:#ff4757;">
+                    <span>Grand Total Value:</span><span>₱${runningTotal.toLocaleString('en-PH', {minimumFractionDigits:2})}</span>
+                </div></div>`;
+                
+                html += `<button onclick="openCheckoutModalWindow()" class="add-to-cart-btn" style="background:#ff4757; width:fit-content; padding:12px 30px;">Proceed to Checkout Frame</button>`;
+                container.innerHTML = html;
+            }
+        }
+
+        // LOAD ORDERS FROM STORAGE
+        function loadSavedOrdersTable() {
+            const tableBody = document.getElementById('dashOrdersTableBody');
+            const storedOrders = JSON.parse(sessionStorage.getItem('userOrders')) || [];
+            
+            if (storedOrders.length === 0) {
+                tableBody.innerHTML = `
+                    <tr id="emptyOrdersRow">
+                        <td colspan="5" style="padding: 20px; text-align: center; color: #777;">No finalized purchases recorded in this session yet.</td>
+                    </tr>`;
+                return;
+            }
+
+            tableBody.innerHTML = "";
+            storedOrders.forEach(order => {
+                const tr = document.createElement('tr');
+                tr.style.borderBottom = '1px solid #eee';
+                tr.innerHTML = `
+                    <td style="padding: 12px; font-weight: 600; color: #ff4757;">${order.id}</td>
+                    <td style="padding: 12px;">${order.date}</td>
+                    <td style="padding: 12px; text-transform:capitalize; max-width:250px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${order.items}">${order.items}</td>
+                    <td style="padding: 12px; font-weight:500;">${order.payment}</td>
+                    <td style="padding: 12px;"><span style="color: #2ed573; font-weight: 600;">${order.status}</span></td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // SAVE ORDER INTERACTIVELY
+        function handleFinalDashboardOrderPlacement() {
+            if (typeof cart === 'undefined' || cart.length === 0) return;
+
+            const selectedOption = document.querySelector('input[name="paymentOption"]:checked');
+            const paymentMethod = selectedOption ? selectedOption.value : "GCash";
+            const orderId = '#NK-' + Math.floor(10000 + Math.random() * 90000);
+            const itemsSummary = cart.map(i => `${i.name} (x${i.quantity})`).join(', ');
+            const newOrder = {
+    id: orderId,
+    date: 'Just Now',
+    items: itemsSummary,
+    payment: paymentMethod,
+    status: 'Processing'
+};
+
+const adminOrders =
+JSON.parse(
+    localStorage.getItem("allOrders")
+) || [];
+
+adminOrders.push(newOrder);
+
+localStorage.setItem(
+    "allOrders",
+    JSON.stringify(adminOrders)
+);
+
+            // Pull, push, and sync back order array onto session engine
+            const currentOrders = JSON.parse(sessionStorage.getItem('userOrders')) || [];
+            currentOrders.unshift(newOrder); // Add to beginning
+            sessionStorage.setItem('userOrders', JSON.stringify(currentOrders));
+let points =
+Number(sessionStorage.getItem('loyaltyPoints')) || 0;
+
+points += 100;
+
+sessionStorage.setItem(
+    'loyaltyPoints',
+    points
+);
+
+const loyalty =
+document.getElementById('loyaltyPoints');
+
+if(loyalty){
+    loyalty.textContent = points;
+}
+            alert(`Success! Order ${orderId} has been securely saved to your profile record.`);
+            
+            // Clear checkout global elements arrays context
+            cart = [];
+            if (typeof updateCartUI === 'function') updateCartUI();
+            
+            closeCheckoutModalWindow();
+            syncDashboardCartView();
+            loadSavedOrdersTable();
+            
+            switchDashboardTab('orders', document.getElementById('tabButton-orders'));
+        }
+
+        // LOGOUT ROUTINES
+        function handleManualLogOut() {
+            sessionStorage.clear();
+            window.location.reload();
+        }
+
+        function handleAutoLogOut() {
+            sessionStorage.clear();
+            alert("⏰ Security Notice: You have been logged out automatically due to 5 minutes of inactivity.");
+            window.location.reload();
+        }
+
+        // TERMS & PRIVACY LAW SYNC DISPLAY OVERLAY
+        function openLegalModal(type) {
+            const modal = document.getElementById('legalModal');
+            const title = document.getElementById('legalModalTitle');
+            const body = document.getElementById('legalModalBody');
+
+            title.textContent = "Terms & Conditions & Data Privacy Framework";
+            body.innerHTML = `
+                <p style="margin-bottom:12px;">Welcome to <strong>Nomad Kicks Footwear Store</strong>. By accessing this platform and making an account, you accept these legal terms and conditions directly aligned with national consumer frameworks.</p>
+                
+                <h4 style="margin-top:15px; margin-bottom:5px; font-weight:600; color:#ff4757;">⚖️ 1. Republic Act No. 10173 (Data Privacy Act of 2012)</h4>
+                <p style="margin-bottom:12px;">In compliance with the <strong>Philippine Data Privacy Act of 2012 (DPA)</strong>, we ensure that all personal info gathered (names, emails, physical destinations) is kept highly confidential. We implement secure session-tokens to safeguard account sessions.</p>
+                
+                <h4 style="margin-top:15px; margin-bottom:5px; font-weight:600;">📦 2. Information Usage & Orders Processing</h4>
+                <p style="margin-bottom:12px;">We collect data explicitly to maintain active checkout lists and dynamic transaction logging within your account panel. Your details will never be leased or shared with outside advertisement aggregates without express authority.</p>
+                
+                <h4 style="margin-top:15px; margin-bottom:5px; font-weight:600;">🛡️ 3. Account Safety & Inactivity Auto-Logout</h4>
+                <p style="margin-bottom:12px;">To maintain compliance with security best practices under data integrity laws, accounts experiencing <strong>5 minutes of absolute stagnation or zero interaction signatures</strong> will trigger an immediate auto-logout clearance to shield private data from nearby vectors.</p>
+                
+                <h4 style="margin-top:15px; margin-bottom:5px; font-weight:600;">🛒 4. Fair E-Commerce Trading</h4>
+                <p>All pricing metrics reflect local legal tenders (Philippine Peso - PHP). Nomad Kicks reserves full discretion to adjust cart processing limits or verify drop locations where structural shipping details are flagrantly incomplete or deceptive.</p>
+            `;
+            modal.classList.add('open');
+        }
+
+        function closeLegalModal() {
+            document.getElementById('legalModal').classList.remove('open');
+        }
+        const lastLogin =
+document.getElementById('lastLoginDisplay');
+
+if(lastLogin){
+    lastLogin.textContent =
+    sessionStorage.getItem('lastLogin') || 'N/A';
+}
+
+function handleLogin() {
+
+    const email =
+    document.getElementById("loginEmail").value.trim();
+
+    const password =
+    document.getElementById("loginPassword").value;
+
+    // ADMIN LOGIN
+    if (
+        email === "nomadkicks.ph@gmail.com" &&
+        password === "nomadkicks"
+    ) {
+
+        sessionStorage.setItem("isAdmin", "true");
+
+        renderAdminDashboard();
+
+        return;
+    }
+    let users =
+    JSON.parse(
+        localStorage.getItem("users")
+    ) || [];
+
+    const user =
+    users.find(
+        u =>
+        u.email === email &&
+        u.password === password
+    );
+
+    if(user){
+
+        handleAuthSuccess(
+            user.name,
+            user.email,
+            user.location
+        );
+
+        return;
+    }
+
+    alert("Invalid email or password.");
+}
+
+    function addProduct(){
+
+    const name =
+    document.getElementById("productName").value;
+
+    const price =
+    document.getElementById("productPrice").value;
+
+    const image =
+document.getElementById("productImage").value;
+
+    if(!name || !price){
+        alert("Enter product details");
+        return;
+    }
+
+    let products =
+    JSON.parse(localStorage.getItem("products"))
+    || [];
+
+    products.push({
+    id: Date.now(),
+    name: name,
+    price: Number(price),
+    image: image || "images/product1.jpg"
+});
+    localStorage.setItem(
+        "products",
+        JSON.stringify(products)
+    );
+
+    if(typeof displayProducts === "function"){
+    displayProducts();
+}
+
+    loadAdminProducts();
+
+    document.getElementById("productName").value = "";
+    document.getElementById("productPrice").value = "";
+}
+
+function loadAdminProducts(){
+
+    const container =
+    document.getElementById("adminProductList");
+
+    if(!container) return;
+
+    let products =
+    JSON.parse(
+        localStorage.getItem("products")
+    ) || [];
+
+    document.getElementById(
+        "adminProductCount"
+    ).textContent = products.length;
+
+    container.innerHTML = "";
+
+    products.forEach((product,index)=>{
+
+    container.innerHTML += `
+        <div style="padding:10px;border-bottom:1px solid #333;">
+            <strong>${product.name}</strong>
+            <br>
+            ₱${product.price}
+
+            <button
+                onclick="deleteProduct(${index})"
+                style="float:right;"
+            >
+                Delete
+            </button>
+        </div>
+    `;
+});
+}
+
+function deleteProduct(index){
+
+    let products =
+    JSON.parse(
+        localStorage.getItem("products")
+    ) || [];
+
+    products.splice(index,1);
+
+    localStorage.setItem(
+        "products",
+        JSON.stringify(products)
+    );
+
+    loadAdminProducts();
+}
+
+function loadAdminOrders(){
+
+    const container =
+    document.getElementById("adminOrdersList");
+
+    if(!container) return;
+
+    let orders =
+JSON.parse(
+    localStorage.getItem("allOrders")
+) || [];
+
+    document.getElementById(
+        "adminOrderCount"
+    ).textContent = orders.length;
+
+    container.innerHTML = "";
+
+    orders.forEach(order=>{
+
+        container.innerHTML += `
+            <div style="padding:10px;border-bottom:1px solid #333;">
+                <strong>${order.id}</strong>
+                <br>
+                ${order.items}
+                <br>
+                ${order.payment}
+                <br>
+                ${order.status}
+            </div>
+        `;
+    });
+}
+
+function loadAdminUsers(){
+
+    const container =
+    document.getElementById(
+        "adminUsersList"
+    );
+
+    if(!container) return;
+
+    let users =
+    JSON.parse(
+        localStorage.getItem("users")
+    ) || [];
+
+    container.innerHTML = "";
+
+    users.forEach(user=>{
+
+        container.innerHTML += `
+        <div style="
+            padding:10px;
+            border-bottom:1px solid #ccc;
+        ">
+            <strong>${user.name}</strong>
+            <br>
+            ${user.email}
+            <br>
+            ${user.location}
+        </div>
+        `;
+    });
+}
+
+    </script>
+    <script>
+function checkPasswordStrength() {
+
+    const password =
+        document.getElementById("regPassword").value;
+
+    const strength =
+        document.getElementById("passwordStrength");
+
+    if(password.length < 6){
+        strength.textContent = "Weak Password";
+        strength.style.color = "red";
+    }
+    else if(password.length < 10){
+        strength.textContent = "Medium Password";
+        strength.style.color = "orange";
+    }
+    else{
+        strength.textContent = "Strong Password";
+        strength.style.color = "green";
+    }
+}
+function registerUser(){
+
+    const name =
+    document.getElementById("regName").value.trim();
+
+    const email =
+    document.getElementById("regEmail").value.trim();
+
+    const password =
+    document.getElementById("regPassword").value;
+
+    const location =
+    document.getElementById("regLoc").value;
+
+    if(!name || !email || !password){
+
+        alert("Please fill all fields.");
+        return;
+    }
+
+    let users =
+    JSON.parse(
+        localStorage.getItem("users")
+    ) || [];
+
+    const existingUser =
+    users.find(user => user.email === email);
+
+    if(existingUser){
+
+        alert("Email already registered.");
+        return;
+    }
+
+    users.push({
+        name,
+        email,
+        password,
+        location
+    });
+
+    localStorage.setItem(
+        "users",
+        JSON.stringify(users)
+    );
+
+    alert("Registration successful!");
+
+    toggleAuthView("login");
+}
+function switchAdminTab(tab, btn){
+
+    document.getElementById("admin-products").style.display = "none";
+    document.getElementById("admin-orders").style.display = "none";
+    document.getElementById("admin-users").style.display = "none";
+
+    document
+        .querySelectorAll("#adminDashboardBlock .dashboard-tab")
+        .forEach(button => {
+            button.classList.remove("active");
+        });
+
+    document.getElementById(
+        "admin-" + tab
+    ).style.display = "block";
+
+    btn.classList.add("active");
+
+    if(tab === "orders"){
+        loadAdminOrders();
+    }
+
+    if(tab === "users"){
+        loadAdminUsers();
+    }
+}
+document.addEventListener("DOMContentLoaded", function () {
+
+    const navLinks = document.querySelectorAll(".nav-links a");
+
+    navLinks.forEach(link => {
+
+        if (link.getAttribute("href") === "login.html") {
+
+            if (sessionStorage.getItem("isAdmin") === "true") {
+
+                link.innerHTML = "🛠️ Admin Profile";
+                link.href = "login.html";
+
+            } else if (sessionStorage.getItem("isLoggedIn") === "true") {
+
+                link.innerHTML = "👤 My Profile";
+                link.href = "login.html";
+            }
+        }
+    });
+});
+
+    // Automatically switch Login menu based on session
+document.addEventListener("DOMContentLoaded", function () {
+
+    const navLinks = document.querySelectorAll(".nav-links a");
+
+    navLinks.forEach(link => {
+
+        if (link.getAttribute("href") === "login.html") {
+
+            // Admin logged in
+            if (sessionStorage.getItem("isAdmin") === "true") {
+
+                link.innerHTML = "🛠️ Admin Profile";
+link.href = "login.html";
+            }
+
+            // User logged in
+            else if (sessionStorage.getItem("isLoggedIn") === "true") {
+
+                link.innerHTML = "👤 My Profile";
+link.href = "login.html";
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>
